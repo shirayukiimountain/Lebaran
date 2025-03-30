@@ -215,12 +215,68 @@
     background: linear-gradient(45deg, #27ae60, #f39c12);
 }
 
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.7);
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 0.5s ease-in-out;
+    max-width: 400px;
+}
+
+.modal-content h2 {
+    color: #e74c3c;
+    margin-bottom: 10px;
+}
+
+.modal-content button {
+    background: linear-gradient(45deg, #e74c3c, #8e44ad);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1em;
+}
+
+.modal-content button:hover {
+    transform: scale(1.05);
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
     </style>
 </head>
 <body>
     <div class="lebaran-header"></div>
     <div class="particles" id="particles"></div>
     <button id="audioControl" class="sound-btn">Takbiran</button>
+    <div id="thrModal" class="modal">
+    <div class="modal-content">
+        <h2>Maaf, gada THR 🗿</h2>
+        <p>Semoga tetap bahagia di hari yang indah ini 🤲</p>
+        <button onclick="closeModal()">Tutup</button>
+    </div>
+</div>
     <div class="container greeting-card" onclick="this.classList.toggle('flipped')">
         <div class="card-inner">
             <div class="front">
@@ -245,7 +301,60 @@
 
     <script>
       
-const audio = new Audio('takbir.mp3');
+      function showTHRModal() {
+    document.getElementById('thrModal').style.display = 'flex';
+}
+
+function closeModal() {
+    document.getElementById('thrModal').style.display = 'none';
+}
+
+// Perbarui fungsi kejutan agar menampilkan modal
+function playEnhancedConfetti(e) {
+    showTHRModal(); // Menampilkan dialog "Maaf gada THR 🗿"
+
+    const btnRect = e.target.getBoundingClientRect();
+    const x = btnRect.left + btnRect.width / 2;
+    const y = btnRect.top + btnRect.height / 2;
+
+    const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00'];
+    colors.forEach((color) => {
+        confetti({
+            particleCount: 100,
+            angle: 65,
+            spread: 55,
+            origin: { x: x / window.innerWidth, y: y / window.innerHeight },
+            colors: [color],
+            scalar: 1.2,
+            shapes: ['circle', 'square']
+        });
+    });
+    
+    const sparkles = 20;
+            for (let i = 0; i < sparkles; i++) {
+                const spark = document.createElement('div');
+                spark.style.cssText = `
+                    position: absolute;
+                    left: ${e.clientX}px;
+                    top: ${e.clientY}px;
+                    width: 5px;
+                    height: 5px;
+                    background: gold;
+                    border-radius: 50%;
+                    pointer-events: none;
+                    animation: sparkle 0.8s ease-out;
+                `;
+                
+                document.body.appendChild(spark);
+                setTimeout(() => spark.remove(), 800);
+            }
+
+            // Audio effect
+            const audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2579/2579-preview.mp3');
+            audio.play();
+}
+      
+const audio = new Audio('takbiran.mp3');
 audio.loop = true;
 
 // Button control
@@ -272,48 +381,6 @@ document.addEventListener('click', function initialPlay() {
     }
     document.removeEventListener('click', initialPlay);
 });
-        function playEnhancedConfetti(e) {
-            const btnRect = e.target.getBoundingClientRect();
-            const x = btnRect.left + btnRect.width/2;
-            const y = btnRect.top + btnRect.height/2;
-            
-            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00'];
-            colors.forEach((color, i) => {
-                confetti({
-                    particleCount: 100,
-                    angle: 65,
-                    spread: 55,
-                    origin: { x: x/window.innerWidth, y: y/window.innerHeight },
-                    colors: [color],
-                    scalar: 1.2,
-                    shapes: ['circle', 'square']
-                });
-            });
-
-            // Add sparkle effect
-            const sparkles = 20;
-            for (let i = 0; i < sparkles; i++) {
-                const spark = document.createElement('div');
-                spark.style.cssText = `
-                    position: absolute;
-                    left: ${e.clientX}px;
-                    top: ${e.clientY}px;
-                    width: 5px;
-                    height: 5px;
-                    background: gold;
-                    border-radius: 50%;
-                    pointer-events: none;
-                    animation: sparkle 0.8s ease-out;
-                `;
-                
-                document.body.appendChild(spark);
-                setTimeout(() => spark.remove(), 800);
-            }
-
-            // Audio effect
-            const audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2579/2579-preview.mp3');
-            audio.play();
-        }
 
         function createFireworks() {
             const colors = ['#ff0000', '#ffd700', '#00ff00', '#00ffff'];
