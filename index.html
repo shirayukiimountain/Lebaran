@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Hari Raya Idul Fitri 1445 H</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2ecc71;
+            --gold-color: #FFD700;
+            --red-color: #c0392b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(45deg, #1e6b30, #f1c40f);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+            position: relative;
+            /* Diubah dari hidden ke auto */
+            overflow-x: hidden;
+            overflow-y: auto;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%23FFD700" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>'), auto;
+        }
+
+        /* Tambahkan ini */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .lebaran-header {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(to right, var(--gold-color), #ffffff);
+            -webkit-mask-image: url('https://www.svgrepo.com/show/396243/mosque.svg');
+            mask-image: url('https://www.svgrepo.com/show/396243/mosque.svg');
+            mask-repeat: repeat-x;
+            opacity: 0.3;
+        }
+
+        .container {
+          margin: 100px 20px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+            max-width: 700px;
+            margin: 20px;
+            position: relative;
+            z-index: 1;
+            transform: scale(0.9);
+            opacity: 0;
+            animation: cardEntrance 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--gold-color);
+        }
+
+        @keyframes cardEntrance {
+            0% { transform: scale(0.5) rotate(-5deg); }
+            100% { transform: scale(1) rotate(0); opacity: 1; }
+        }
+
+        h1 {
+            color: var(--red-color);
+            margin-bottom: 1.5rem;
+            font-size: 3em;
+            font-family: 'Great Vibes', cursive;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(to right, #c0392b, #8e44ad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .greeting-text {
+            color: #2c3e50;
+            line-height: 1.8;
+            font-size: 1.2em;
+            margin-bottom: 2rem;
+            position: relative;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .apology-text {
+            color: #34495e;
+            font-style: italic;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border-left: 4px solid var(--gold-color);
+            background: rgba(255, 255, 255, 0.8);
+            transform: rotate(-1deg);
+            animation: textFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes textFloat {
+            0%, 100% { transform: rotate(-1deg) translateY(0); }
+            50% { transform: rotate(1deg) translateY(-5px); }
+        }
+
+        .btn-lebaran {
+            background: linear-gradient(45deg, var(--red-color), #8e44ad);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-lebaran:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-lebaran::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(45deg);
+            transition: all 0.5s;
+        }
+
+        .btn-lebaran:hover::after {
+            left: 120%;
+        }
+
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .floating-elements div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    will-change: transform, opacity;
+    animation: float 6s ease-in-out infinite;
+}
+
+        .moon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle at 30% 30%, #fff 0%, #f1c40f 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 30px rgba(241, 196, 15, 0.5);
+            animation: moonGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes moonGlow {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .firework {
+            position: absolute;
+            animation: fireworks 2s ease-out infinite;
+        }
+
+        @keyframes fireworks {
+            0% { transform: scale(0); opacity: 1; }
+            100% { transform: scale(1); opacity: 0; }
+        }
+
+        .greeting-card {
+            perspective: 1000px;
+            position: relative;
+        }
+
+        .card-inner {
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+
+        .greeting-card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="lebaran-header"></div>
+    <div class="moon"></div>
+    <div class="particles" id="particles"></div>
+    
+    <div class="container greeting-card" onclick="this.classList.toggle('flipped')">
+        <div class="card-inner">
+            <div class="front">
+                <h1>Selamat Idul Fitri 1446 H</h1>
+                
+                <p class="greeting-text">
+                    <span class="arabic" style="font-size: 1.5em; display: block; margin-bottom: 1rem;">
+                        كُلُّ عَامٍ وَأَنْتُمْ بِخَيْرٍ
+                    </span>
+                    "Taqabbalallahu minna wa minkum shiyamana wa shiyamakum. 
+                    Minal aidin wal faizin, mohon maaf lahir dan batin."
+                </p>
+
+                <div class="apology-text">
+                    Semoga hari kemenangan ini membawa kebahagiaan dan ketentraman bagi kita semua. Selamat Idul Fitri 1446 H!
+                </div>
+
+                <button class="btn-lebaran" onclick="playEnhancedConfetti(event)">Klik untuk Kejutan!</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        function playEnhancedConfetti(e) {
+            const btnRect = e.target.getBoundingClientRect();
+            const x = btnRect.left + btnRect.width/2;
+            const y = btnRect.top + btnRect.height/2;
+            
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00'];
+            colors.forEach((color, i) => {
+                confetti({
+                    particleCount: 100,
+                    angle: 65,
+                    spread: 55,
+                    origin: { x: x/window.innerWidth, y: y/window.innerHeight },
+                    colors: [color],
+                    scalar: 1.2,
+                    shapes: ['circle', 'square']
+                });
+            });
+
+            // Add sparkle effect
+            const sparkles = 20;
+            for (let i = 0; i < sparkles; i++) {
+                const spark = document.createElement('div');
+                spark.style.cssText = `
+                    position: absolute;
+                    left: ${e.clientX}px;
+                    top: ${e.clientY}px;
+                    width: 5px;
+                    height: 5px;
+                    background: gold;
+                    border-radius: 50%;
+                    pointer-events: none;
+                    animation: sparkle 0.8s ease-out;
+                `;
+                
+                document.body.appendChild(spark);
+                setTimeout(() => spark.remove(), 800);
+            }
+
+            // Audio effect
+            const audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2579/2579-preview.mp3');
+            audio.play();
+        }
+
+        function createFireworks() {
+            const colors = ['#ff0000', '#ffd700', '#00ff00', '#00ffff'];
+            setInterval(() => {
+                const firework = document.createElement('div');
+                firework.className = 'firework';
+                firework.style.cssText = `
+                    left: ${Math.random() * 100}%;
+                    top: ${Math.random() * 100}%;
+                    width: ${10 + Math.random() * 20}px;
+                    height: ${10 + Math.random() * 20}px;
+                    background: ${colors[Math.floor(Math.random() * colors.length)]};
+                    border-radius: 50%;
+                `;
+                document.body.appendChild(firework);
+                setTimeout(() => firework.remove(), 2000);
+            }, 3000);
+        }
+
+        window.onload = () => {
+            createParticles();
+            createFireworks();
+            document.body.style.cursor = 'default';
+        }
+
+        // Add custom cursor trail
+        document.addEventListener('mousemove', (e) => {
+            const trail = document.createElement('div');
+            trail.style.cssText = `
+                position: fixed;
+                left: ${e.clientX}px;
+                top: ${e.clientY}px;
+                width: 8px;
+                height: 8px;
+                background: gold;
+                border-radius: 50%;
+                pointer-events: none;
+                animation: trail 0.3s linear;
+            `;
+            
+            document.body.appendChild(trail);
+            setTimeout(() => trail.remove(), 300);
+        });
+    </script>
+</body>
+  </html>
