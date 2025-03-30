@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selamat Hari Raya Idul Fitri 1445 H</title>
+    <title>Selamat Hari Raya Idul Fitri 1446 H</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
@@ -58,7 +58,7 @@
             text-align: center;
             box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
             max-width: 700px;
-            margin: 20px;
+            margin: 120px, 20px;
             position: relative;
             z-index: 1;
             transform: scale(0.9);
@@ -162,23 +162,6 @@
     animation: float 6s ease-in-out infinite;
 }
 
-        .moon {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 80px;
-            height: 80px;
-            background: radial-gradient(circle at 30% 30%, #fff 0%, #f1c40f 100%);
-            border-radius: 50%;
-            box-shadow: 0 0 30px rgba(241, 196, 15, 0.5);
-            animation: moonGlow 3s ease-in-out infinite;
-        }
-
-        @keyframes moonGlow {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
         .particles {
             position: fixed;
             width: 100%;
@@ -210,14 +193,34 @@
         .greeting-card.flipped .card-inner {
             transform: rotateY(180deg);
         }
+        .sound-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: linear-gradient(45deg, #2ecc71, #f1c40f);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.sound-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    background: linear-gradient(45deg, #27ae60, #f39c12);
+}
 
     </style>
 </head>
 <body>
     <div class="lebaran-header"></div>
-    <div class="moon"></div>
     <div class="particles" id="particles"></div>
-    
+    <button id="audioControl" class="sound-btn">Takbiran</button>
     <div class="container greeting-card" onclick="this.classList.toggle('flipped')">
         <div class="card-inner">
             <div class="front">
@@ -241,7 +244,34 @@
     </div>
 
     <script>
+      
+const audio = new Audio('welcome.mp3');
+audio.loop = true;
 
+// Button control
+const audioControl = document.getElementById('audioControl');
+let isPlaying = false;
+
+audioControl.addEventListener('click', () => {
+    if(isPlaying) {
+        audio.pause();
+        audioControl.innerHTML = 'Putar Takbir';
+    } else {
+        audio.play();
+        audioControl.innerHTML = 'Pause Takbir';
+    }
+    isPlaying = !isPlaying;
+});
+
+// Auto play setelah interaksi pertama
+document.addEventListener('click', function initialPlay() {
+    if(!isPlaying) {
+        audio.play();
+        isPlaying = true;
+        audioControl.innerHTML = 'Pause Takbir';
+    }
+    document.removeEventListener('click', initialPlay);
+});
         function playEnhancedConfetti(e) {
             const btnRect = e.target.getBoundingClientRect();
             const x = btnRect.left + btnRect.width/2;
@@ -329,4 +359,4 @@
         });
     </script>
 </body>
-  </html>
+</html>
